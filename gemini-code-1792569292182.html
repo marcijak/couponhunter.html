@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0c0e">
+<meta name="description" content="CouponHunter — kuponok, kedvezmények és prémium előfizetések egy helyen.">
+<title>CouponHunter — Spórolj okosabban (v4)</title>
+<style>
+:root{--bg:#0b0c0e;--panel:#141619;--panel2:#1b1e21;--text:#f5f6f2;--muted:#a5aaa5;--line:#2a2e2b;--lime:#c8f169;--max:1120px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.55}a{color:inherit;text-decoration:none}button,input,select{font:inherit}.wrap{width:min(var(--max),calc(100% - 36px));margin:auto}
+header{position:sticky;top:0;z-index:10;background:#0b0c0eeF;backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}.nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{display:flex;align-items:center;gap:10px;font-size:1.22rem;font-weight:850;letter-spacing:-.04em}.logo{width:34px;height:34px;display:grid;place-items:center;background:var(--lime);color:#11140b;border-radius:10px;font-size:1.2rem}.navlinks{display:flex;align-items:center;gap:24px;color:var(--muted);font-size:.93rem}.navlinks a:hover{color:var(--lime)}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--lime);background:var(--lime);color:#11140b;font-weight:800;border-radius:999px;padding:12px 18px;cursor:pointer;transition:.2s}.btn:hover{transform:translateY(-2px);filter:brightness(1.04)}.btn.ghost{background:transparent;color:var(--text);border-color:var(--line)}.btn.ghost:hover{border-color:var(--lime);color:var(--lime)}.menu{display:none;background:none;color:white;border:1px solid var(--line);border-radius:10px;padding:8px 11px}
+.hero{padding:86px 0 64px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:380px;height:380px;border-radius:50%;background:#c8f16912;filter:blur(50px);right:-120px;top:20px;pointer-events:none}.eyebrow{color:var(--lime);text-transform:uppercase;letter-spacing:.16em;font-weight:800;font-size:.77rem}.hero h1{font-size:clamp(3rem,8vw,6.3rem);line-height:.99;letter-spacing:-.075em;margin:22px 0;max-width:850px}.hero h1 span{color:var(--lime)}.hero p{color:var(--muted);max-width:650px;font-size:1.13rem}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.trust{display:flex;gap:20px;flex-wrap:wrap;border-top:1px solid var(--line);margin-top:58px;padding-top:20px;color:var(--muted);font-size:.9rem}.trust strong{color:var(--text)}
+section{padding:66px 0}.sectionhead{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}.sectionhead h2{font-size:clamp(2rem,5vw,3.6rem);line-height:1.04;letter-spacing:-.06em;margin:10px 0 0}.sectionhead p{color:var(--muted);max-width:430px;margin:0}.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}.filters input,.filters select{background:var(--panel);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:12px 14px;min-width:190px}.filters input{flex:1}.coupon-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.coupon{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:22px;min-height:210px;display:flex;flex-direction:column}.coupon-top{display:flex;align-items:center;justify-content:space-between;gap:10px}.store{font-weight:850;font-size:1.08rem}.tag{font-size:.75rem;background:#c8f16918;color:var(--lime);padding:5px 9px;border-radius:999px}.discount{font-size:2rem;font-weight:900;letter-spacing:-.05em;margin:24px 0 2px}.coupon p{color:var(--muted);margin:0 0 18px;font-size:.92rem}.coupon .bottom{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:.82rem;color:var(--muted)}.codebtn{background:transparent;border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--text);cursor:pointer}.codebtn:hover{border-color:var(--lime);color:var(--lime)}.note{margin-top:16px;color:var(--muted);font-size:.83rem}
+.plans{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.plan{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:23px;display:flex;flex-direction:column;min-height:280px}.plan.featured{border-color:var(--lime);background:linear-gradient(150deg,#c8f16913,transparent 60%),var(--panel)}.plan h3{margin:0;font-size:1.1rem}.price{font-size:2.15rem;font-weight:900;letter-spacing:-.06em;margin:18px 0 0}.duration{color:var(--muted);font-size:.86rem}.plan ul{list-style:none;padding:0;margin:20px 0;display:grid;gap:8px;color:#d9ddd7;font-size:.9rem}.plan li:before{content:"✓";color:var(--lime);margin-right:8px;font-weight:900}.plan .btn{margin-top:auto;width:100%}.aboutgrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}.aboutcard{border:1px solid var(--line);border-radius:20px;padding:30px;background:var(--panel)}.aboutcard h3{font-size:1.5rem;margin:10px 0}.aboutcard p,.aboutcard li{color:var(--muted)}.aboutcard ul{padding-left:20px}
+.cta{background:var(--lime);color:#14180d;border-radius:24px;padding:clamp(28px,5vw,54px);display:flex;align-items:center;justify-content:space-between;gap:25px}.cta h2{font-size:clamp(2rem,5vw,3.8rem);letter-spacing:-.06em;line-height:1.04;margin:10px 0}.cta p{max-width:560px;color:#394128}.cta .eyebrow{color:#394128}.btn.dark{background:#11140b;color:white;border-color:#11140b;flex-shrink:0}
+footer{padding:28px 0;color:var(--muted);font-size:.85rem}.foot{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+dialog{background:#151719;color:var(--text);border:1px solid var(--line);border-radius:18px;padding:26px;width:min(460px,calc(100% - 28px))}dialog::backdrop{background:#000a;backdrop-filter:blur(5px)}dialog h2{margin-top:0}dialog p{color:var(--muted)}.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--lime);color:#11140b;padding:12px 18px;border-radius:999px;font-weight:750;box-shadow:0 8px 35px #0008;z-index:50;display:none}
+@media(max-width:850px){.coupon-grid{grid-template-columns:repeat(2,1fr)}.plans{grid-template-columns:repeat(2,1fr)}.sectionhead{align-items:flex-start;flex-direction:column}.navlinks{gap:14px}}
+@media(max-width:620px){.wrap{width:calc(100% - 28px)}.menu{display:block}.navlinks{display:none;position:absolute;top:73px;left:0;right:0;background:#101214;padding:18px 20px 24px;flex-direction:column;align-items:stretch;border-bottom:1px solid var(--line)}.navlinks.open{display:flex}.navlinks .btn{align-self:flex-start}.hero{padding:65px 0 45px}.trust{margin-top:38px}.coupon-grid,.plans,.aboutgrid{grid-template-columns:1fr}.plan{min-height:unset}.cta{align-items:flex-start;flex-direction:column}section{padding:52px 0}}
+
+:root{--lime:#c8f169}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.coupon{position:relative;transition:border-color .2s,transform .2s}
+.coupon:hover{border-color:#59634a;transform:translateY(-2px)}
+.coupon[hidden]{display:none!important}
+.coupon-tools{display:flex;gap:8px;align-items:center}
+.favorite-btn{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:7px 10px;cursor:pointer}
+.favorite-btn.active{color:var(--lime);border-color:var(--lime)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.field{display:grid;gap:6px;margin:12px 0}
+.field label{font-size:.9rem;color:#d9ddd7;font-weight:650}
+.field input,.field select,.field textarea{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:11px 12px}
+.field textarea{min-height:92px;resize:vertical}
+.form-help{font-size:.82rem;color:var(--muted)}
+.form-submit{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:18px}
+.user-chip{color:var(--lime);font-size:.86rem}
+.empty-state{grid-column:1/-1;border:1px dashed var(--line);border-radius:16px;padding:28px;text-align:center;color:var(--muted)}
+#accountPanel{display:none;border:1px solid var(--line);border-radius:16px;padding:18px;margin:0 0 20px;background:var(--panel)}
+#accountPanel.visible{display:block}
+.admin-box{margin-top:16px;padding:14px;background:var(--panel2);border:1px solid var(--line);border-radius:12px}
+.admin-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.admin-item:last-child{border-bottom:none}
+</style>
+</head>
+<body>
+<header><div class="wrap nav">
+<a class="brand" href="#top"><span class="logo">C</span> CouponHunter</a>
+<button class="menu" id="menuBtn" aria-expanded="false" aria-controls="navlinks">Menü ☰</button>
+<nav class="navlinks" id="navlinks"><a href="#kuponok">Kuponok</a><a href="#csomagok">Előfizetések</a><a href="#hogyan">Hogyan működik?</a><button class="btn" data-modal="account">Belépés / Regisztráció</button></nav>
+</div></header>
+<main id="top">
+<section class="hero"><div class="wrap">
+<div class="eyebrow">Okosabb vásárlás, egyszerűbben — v4</div>
+<h1>Találd meg a kedvezményt.<br><span>Vadászd le az árat.</span></h1>
+<p>Kuponok és ajánlatok egy helyen, kedvenc üzleteidhez. Küldj be 3 kupont jóváhagyásra, és szerezz 7 nap ingyen prémiumot!</p>
+<div class="actions"><a class="btn" href="#kuponok">Kuponok felfedezése ↘</a><a class="btn ghost" href="#csomagok">Csomagok megtekintése</a></div>
+<div class="trust"><span>✦ <strong>Előfizetések & Lemondás</strong></span><span>✦ 3 kupon = 7 nap ingyen</span><span>✦ Admin pénzügyi statisztika</span></div>
+</div></section>
+
+<section id="kuponok"><div class="wrap">
+<div class="sectionhead"><div><div class="eyebrow">Kuponvadászat</div><h2>Friss ajánlatok,<br>egy helyen.</h2></div><p>Keresd meg az üzletet vagy kategóriát a keresőmezőben.</p></div>
+<div id="accountPanel" aria-live="polite"></div>
+<div class="actions" style="margin:0 0 20px">
+  <button class="btn" id="openSubmitCoupon">＋ Kupon beküldése</button>
+  <button class="btn ghost" id="showFavorites">♡ Kedvenceim</button>
+  <button class="btn ghost" id="openAdminModal" style="display:none">⚙️ Admin Panel</button>
+  <span class="user-chip" id="userStatus"></span>
+</div>
+<div class="filters">
+  <input id="search" type="search" placeholder="Keresés üzlet vagy kategória szerint…" aria-label="Kupon keresése">
+  <select id="category" aria-label="Kategória szűrése">
+    <option value="all">Minden kategória</option>
+    <option value="Élelmiszer">Élelmiszer</option>
+    <option value="Divat">Divat</option>
+    <option value="Elektronika">Elektronika</option>
+    <option value="Otthon">Otthon</option>
+  </select>
+</div>
+
+<div class="coupon-grid" id="couponGrid">
+  <article class="coupon" data-store="Tesco" data-category="Élelmiszer" data-coupon-id="sample-0">
+    <div class="coupon-top"><span class="store">Tesco</span><span class="tag">Élelmiszer</span></div>
+    <div class="discount">10% Kedvezmény</div>
+    <p>Érvényes minden friss pékárura a készlet erejéig.</p>
+    <div class="bottom">
+      <span>Lejárat: 2026-11-30</span>
+      <span class="coupon-tools">
+        <button type="button" class="codebtn" data-code="TESCO10">Kód másolása</button>
+        <button type="button" class="favorite-btn" aria-label="Mentés">♡ Mentés</button>
+      </span>
+    </div>
+  </article>
+  <article class="coupon" data-store="SPAR" data-category="Élelmiszer" data-coupon-id="sample-1">
+    <div class="coupon-top"><span class="store">SPAR</span><span class="tag">Élelmiszer</span></div>
+    <div class="discount">500 Ft kedvezmény</div>
+    <p>Minimum 5000 Ft vásárlás esetén szupermarketekben.</p>
+    <div class="bottom">
+      <span>Lejárat: 2026-12-15</span>
+      <span class="coupon-tools">
+        <button type="button" class="codebtn" data-code="SPAR500">Kód másolása</button>
+        <button type="button" class="favorite-btn" aria-label="Mentés">♡ Mentés</button>
+      </span>
+    </div>
+  </article>
+</div>
+</div></section>
+
+<section id="csomagok"><div class="wrap">
+<div class="sectionhead"><div><div class="eyebrow">Prémium hozzáférés</div><h2>Válaszd a neked való<br>kuponvadász csomagot.</h2></div><p>Egyszeri fizetésű időszakos hozzáférések. Előfizetés után bármikor lemondható.</p></div>
+<div class="plans">
+<article class="plan"><h3>1 hetes</h3><div class="price">199 Ft</div><div class="duration">7 nap hozzáférés</div><ul><li>Prémium kuponok</li><li>Kódok másolása</li><li>Egyszeri fizetés</li></ul><button class="btn ghost" data-plan="1 hetes · 199 Ft" data-price="199">Csomag választása</button></article>
+<article class="plan"><h3>1 havi</h3><div class="price">499 Ft</div><div class="duration">30 nap hozzáférés</div><ul><li>Prémium kuponok</li><li>Kódok másolása</li><li>Egyszeri fizetés</li></ul><button class="btn ghost" data-plan="1 havi · 499 Ft" data-price="499">Csomag választása</button></article>
+<article class="plan featured"><h3>6 havi <span class="tag">Népszerű</span></h3><div class="price">2 499 Ft</div><div class="duration">6 hónap hozzáférés · kb. 417 Ft/hó</div><ul><li>Prémium kuponok</li><li>Kódok másolása</li><li>Egyszeri fizetés</li></ul><button class="btn" data-plan="6 havi · 2 499 Ft" data-price="2499">Csomag választása</button></article>
+<article class="plan"><h3>1 éves</h3><div class="price">3 999 Ft</div><div class="duration">12 hónap hozzáférés · kb. 333 Ft/hó</div><ul><li>Prémium kuponok</li><li>Kódok másolása</li><li>Egyszeri fizetés</li></ul><button class="btn ghost" data-plan="1 éves · 3 999 Ft" data-price="3999">Csomag választása</button></article>
+</div>
+</div></section>
+
+<section id="hogyan"><div class="wrap">
+<div class="sectionhead"><div><div class="eyebrow">A közösség ereje</div><h2>Spórolj. Oszd meg.<br>Segíts másoknak.</h2></div><p>Három jóváhagyott kupon után automatikusan 7 nap ingyenes prémium csomagot kapsz!</p></div>
+<div class="aboutgrid">
+  <article class="aboutcard"><div class="eyebrow">01 / Tagság</div><h3>Előfizetés & Lemondás</h3><p>Válassz csomagot, vagy mondd le bármikor a profilodon keresztül egyetlen gombnyomással.</p><ul><li>Nincs automatikus megújulás</li><li>Azonnali lemondási opció</li></ul></article>
+  <article class="aboutcard"><div class="eyebrow">02 / Jutalom</div><h3>Három kupon = 7 nap ingyen</h3><p>Küldj be 3 db érvényes kupont. Ha az admin mindhármat jóváhagyja, 7 nap prémiumot kapsz ajándékba!</p><button class="btn" data-modal="account">Kupon beküldése</button></article>
+</div>
+</div></section>
+</main>
+
+<footer><div class="wrap foot"><a class="brand" href="#top"><span class="logo">C</span> CouponHunter</a><span>© <span id="year"></span> CouponHunter v4</span><span>Kuponok és feltételek ellenőrzése szükséges.</span></div></footer>
+
+<!-- Modals -->
+<dialog id="accountDialog">
+  <h2 id="accountHeading">CouponHunter-fiók</h2>
+  <p id="accountIntro">Jelentkezz be a fiókodba.</p>
+  <form id="accountForm">
+    <div class="field"><label for="accountEmail">E-mail-cím</label><input id="accountEmail" type="email" autocomplete="email" required maxlength="160" placeholder="te@email.hu"></div>
+    <div class="field"><label for="accountPassword">Jelszó</label><input id="accountPassword" type="password" autocomplete="current-password" required minlength="8" maxlength="128" placeholder="Legalább 8 karakter"></div>
+    <div class="form-help">Admin fiókhoz használd az `admin@couponhunter.hu` címet.</div>
+    <div class="form-submit"><button type="button" class="btn ghost" id="switchAccountMode">Regisztrációra váltás</button><button class="btn" type="submit" id="accountSubmit">Belépés</button></div>
+  </form>
+  <div class="modal-actions"><button class="btn ghost" type="button" data-close-dialog="accountDialog">Bezárás</button></div>
+</dialog>
+
+<dialog id="submitDialog">
+  <h2>Új kupon beküldése</h2>
+  <p>Ha 3 saját kuponodat jóváhagyja az admin, 7 nap ingyen prémiumot kapsz!</p>
+  <form id="couponForm">
+    <div class="form-grid">
+      <div class="field"><label for="couponStore">Üzlet neve</label><input id="couponStore" required maxlength="70" placeholder="Pl. Alza"></div>
+      <div class="field"><label for="couponCategory">Kategória</label><select id="couponCategory" required><option value="Élelmiszer">Élelmiszer</option><option value="Divat">Divat</option><option value="Elektronika">Elektronika</option><option value="Otthon">Otthon</option><option value="Egyéb">Egyéb</option></select></div>
+    </div>
+    <div class="form-grid">
+      <div class="field"><label for="couponDiscount">Kedvezmény / ajánlat</label><input id="couponDiscount" required maxlength="50" placeholder="Pl. 15% kedvezmény"></div>
+      <div class="field"><label for="couponCode">Kuponkód</label><input id="couponCode" required maxlength="60" placeholder="Pl. KEDVEZMENY15"></div>
+    </div>
+    <div class="form-grid">
+      <div class="field"><label for="couponExpiry">Lejárat</label><input id="couponExpiry" type="date" required></div>
+      <div class="field"><label for="couponUrl">Weboldal linkje (opcionális)</label><input id="couponUrl" type="url" maxlength="500" placeholder="https://..."></div>
+    </div>
+    <div class="field"><label for="couponDescription">Feltételek / leírás</label><textarea id="couponDescription" required maxlength="500" placeholder="Mire érvényes?"></textarea></div>
+    <div class="form-submit"><button type="button" class="btn ghost" data-close-dialog="submitDialog">Mégse</button><button class="btn" type="submit">Beküldés ellenőrzésre</button></div>
+  </form>
+</dialog>
+
+<dialog id="adminDialog">
+  <h2>Adminisztrációs & Pénzügyi Panel</h2>
+  <p id="adminStatsText" style="color:var(--lime);font-weight:bold;margin-bottom:15px;"></p>
+  <p>Függőben lévő kuponok moderálása:</p>
+  <div id="adminCouponList" class="admin-box">Nincs függőben lévő kupon.</div>
+  <div class="modal-actions"><button class="btn ghost" type="button" data-close-dialog="adminDialog">Bezárás</button></div>
+</dialog>
+
+<dialog id="infoModal"><h2 id="modalTitle">CouponHunter</h2><p id="modalText"></p><div class="modal-actions"><button class="btn ghost" id="closeModal">Bezárás</button></div></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const $ = (s, root=document) => root.querySelector(s); const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const safeRead = (key, fallback) => { try { const v=JSON.parse(localStorage.getItem(key)); return v ?? fallback; } catch { return fallback; } };
+  const safeWrite = (key, value) => { try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { toast('A böngésző nem engedte a helyi mentést.'); return false; } };
+  const toastEl = $('#toast');
+  let toastTimer;
+  function toast(message) { toastEl.textContent=message; toastEl.style.display='block'; clearTimeout(toastTimer); toastTimer=setTimeout(()=>toastEl.style.display='none',3000); }
+
+  const menuBtn=$('#menuBtn'), nav=$('#navlinks');
+  menuBtn.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open));menuBtn.textContent=open?'Bezárás ✕':'Menü ☰';});
+  nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.textContent='Menü ☰';}));
+  $('#year').textContent=new Date().getFullYear();
+
+  const search=$('#search'), category=$('#category'); let favorites = safeRead('ch_v4_favorites', []); let user = safeRead('ch_v4_user', null); let customCoupons = safeRead('ch_v4_coupons', []); let allTransactions = safeRead('ch_v4_transactions', []); let favoritesOnly = false;    const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));  function syncFavoriteButtons() { $$('.coupon').forEach(card => {
+      const id=card.dataset.couponId, btn=$('.favorite-btn',card); if(btn){const active=favorites.includes(id);btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));btn.textContent=active?'♥ Mentve':'♡ Mentés';} }); }    function filterCoupons() { const q=search.value.trim().toLocaleLowerCase('hu'); let visible=0; $$('.coupon').forEach(card=>{
+      const text=(card.dataset.store+' '+card.dataset.category+' '+card.innerText).toLocaleLowerCase('hu');
+      const matches=text.includes(q)&&(category.value==='all'||card.dataset.category===category.value);
+      const favMatch=!favoritesOnly||favorites.includes(card.dataset.couponId);
+      card.hidden=!(matches&&favMatch); if(!card.hidden) visible++;
+    });
+    let empty=$('#couponEmpty');
+    if(!visible){if(!empty){empty=document.createElement('div');empty.id='couponEmpty';empty.className='empty-state';$('#couponGrid').append(empty);}empty.textContent=favoritesOnly?'Még nincs mentett kedvenced.':'Nincs a keresésnek megfelelő kupon.';}
+    else if(empty) empty.remove();
+  }
+
+  search.addEventListener('input',filterCoupons);
+  category.addEventListener('change',filterCoupons);
+  $('#showFavorites').addEventListener('click',()=>{favoritesOnly=!favoritesOnly;$('#showFavorites').textContent=favoritesOnly?'♡ Minden kupon':'♡ Kedvenceim';filterCoupons();$('#kuponok'].scrollIntoView({behavior:'smooth'});});
+
+  $('#couponGrid').addEventListener('click', e=>{
+    const favBtn=e.target.closest('.favorite-btn');
+    if(favBtn){
+      const card=favBtn.closest('.coupon');
+      const id=card.dataset.couponId;
+      favorites=favorites.includes(id)?favorites.filter(x=>x!==id):[...favorites,id];
+      safeWrite('ch_v4_favorites',favorites);syncFavoriteButtons();filterCoupons();
+      toast(favorites.includes(id)?'Kupon elmentve a kedvencek közé.':'Kupon eltávolítva a kedvencekből.');
+      return;
+    }
+    const codeBtn=e.target.closest('.codebtn');
+    if(codeBtn){
+      const code=codeBtn.dataset.code;
+      if(code){
+        navigator.clipboard?.writeText(code).catch(()=>{});
+        toast(`Kód vágólapra másolva: ${code}`);
+      }
+    }
+  });
+
+  function renderCoupons() {
+    $$('.coupon[data-dynamic="true"]').forEach(el => el.remove());
+    customCoupons.forEach((c)=>{
+      if(c.status !== 'approved') return;
+      const article=document.createElement('article');
+      article.className='coupon';
+      article.dataset.store=c.store;
+      article.dataset.category=c.category;
+      article.dataset.couponId='dyn-'+c.id;
+      article.dataset.dynamic='true';
+      article.innerHTML=`<div class="coupon-top"><span class="store">${escapeHTML(c.store)}</span><span class="tag">${escapeHTML(c.category)}</span></div><div class="discount">${escapeHTML(c.discount)}</div><p>${escapeHTML(c.description)}</p><div class="bottom"><span>Lejárat: ${escapeHTML(c.expiry)}</span><span class="coupon-tools"><button type="button" class="codebtn" data-code="${escapeHTML(c.code)}">Kód: ${escapeHTML(c.code)}</button><button type="button" class="favorite-btn">♡ Mentés</button></span></div>`;
+      $('#couponGrid').appendChild(article);
+    });
+    syncFavoriteButtons();
+    filterCoupons();
+  }
+
+  // Account management
+  const accountDialog=$('#accountDialog'), accountForm=$('#accountForm');
+  let accountMode='login';
+  function updateAccountMode(){
+    $('#accountHeading').textContent=accountMode==='login'?'Belépés':'Fiók létrehozása';
+    $('#accountIntro').textContent=accountMode==='login'?'Jelentkezz be a fiókodba.':'Regisztrálj új fiókot.';
+    $('#accountSubmit').textContent=accountMode==='login'?'Belépés':'Regisztráció';
+    $('#switchAccountMode').textContent=accountMode==='login'?'Regisztrációra váltás':'Belépésre váltás';
+  }
+  $('#switchAccountMode').addEventListener('click',()=>{accountMode=accountMode==='login'?'register':'login';updateAccountMode();});
+
+  function renderUser(){
+    const userStatus=$('#userStatus'), panel=$('#accountPanel'), adminBtn=$('#openAdminModal');
+    if(user){
+      userStatus.textContent=`Bejelentkezve: ${user.email}`;
+      panel.classList.add('visible');
+      const isAdmin=user.email==='admin@couponhunter.hu';
+      adminBtn.style.display=isAdmin?'inline-flex':'none';
+      
+      const userApprovedCount = customCoupons.filter(c => c.submittedBy === user.email && c.status === 'approved').length;
+
+      panel.innerHTML=`
+        <strong>Szia, ${escapeHTML(user.email)}!</strong>
+        <p class="form-help">Státusz: ${user.premium ? '⭐ Prémium Előfizetés aktív' : 'Ingyenes fiók'} | Jóváhagyott kuponjaid: ${userApprovedCount}/3</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+          ${user.premium ? `<button type="button" class="btn ghost" id="cancelSubBtn" style="color:#ff6b6b;border-color:#ff6b6b;">Előfizetés lemondása</button>` : ''}
+          <button type="button" class="btn ghost" id="logoutBtn">Kilépés</button>
+        </div>
+      `;
+      $('#logoutBtn').addEventListener('click',()=>{user=null;safeWrite('ch_v4_user',null);renderUser();toast('Sikeres kijelentkezés.');});
+      if(user.premium){
+        $('#cancelSubBtn').addEventListener('click',()=>{ user.premium = false; safeWrite('ch_v4_user',user); renderUser(); toast('Előfizetés sikeresen lemondva.'); }); } } else { userStatus.textContent=''; panel.classList.remove('visible'); adminBtn.style.display='none'; panel.innerHTML=''; } }    $$('[data-modal="account"]').forEach(b=>b.addEventListener('click',()=>{accountMode='login';updateAccountMode();accountForm.reset();accountDialog.showModal();}));
+  
+  accountForm.addEventListener('submit',e=>{
+    e.preventDefault();
+    const email=$('#accountEmail').value.trim().toLowerCase(), password=$('#accountPassword').value;
+    if(password.length<8){toast('A jelszó legalább 8 karakter legyen.');return;}
+    user = safeRead('ch_v4_user_data_'+email, {email, premium: email==='admin@couponhunter.hu'});
+    safeWrite('ch_v4_user',user);
+    toast('Sikeres bejelentkezés.');
+    accountDialog.close();
+    renderUser();
+  });
+
+  // Submit Coupon
+  const submitDialog=$('#submitDialog');
+  $('#openSubmitCoupon').addEventListener('click',()=>{
+    if(!user){toast('A kupon beküldéséhez kérlek jelentkezz be.');accountDialog.showModal();return;}
+    $('#couponForm').reset();submitDialog.showModal();
+  });
+  
+  $('#couponForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const store=$('#couponStore').value.trim(), category=$('#couponCategory').value, discount=$('#couponDiscount').value.trim(), code=$('#couponCode').value.trim(), expiry=$('#couponExpiry').value, description=$('#couponDescription').value.trim();
+    const newC={id:Date.now().toString(36), store, category, discount, code, expiry, description, status:'pending', submittedBy: user.email};
+    customCoupons.push(newC);
+    safeWrite('ch_v4_coupons',customCoupons);
+    submitDialog.close();
+    toast('Kupon sikeresen beküldve ellenőrzésre!');
+  });
+
+  // Admin Modal & Financial stats
+  const adminDialog=$('#adminDialog');
+  $('#openAdminModal').addEventListener('click',()=>{
+    renderAdminPanel();
+    adminDialog.showModal();
+  });
+
+  function renderAdminPanel(){
+    const listEl=$('#adminCouponList');
+    const statsEl=$('#adminStatsText');
+    
+    const totalRevenue = allTransactions.reduce((acc, t) => acc + t.amount, 0);
+    statsEl.textContent = `💰 Előfizetésekből összegyűlt pénz összesen: ${totalRevenue.toLocaleString('hu-HU')} Ft`;
+
+    const pending=customCoupons.filter(c=>c.status==='pending');
+    if(!pending.length){listEl.innerHTML='<p style="margin:0;color:var(--muted)">Nincs függőben lévő kupon.</p>';return;}
+    listEl.innerHTML=pending.map(c=>`
+      <div class="admin-item">
+        <div><strong>${escapeHTML(c.store)}</strong> (${escapeHTML(c.discount)}) — Beküldő: ${escapeHTML(c.submittedBy)}</div>
+        <div>
+          <button class="btn" style="padding:6px 12px;font-size:.8rem" onclick="window.approveCoupon('${c.id}')">Jóváhagyás</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  window.approveCoupon = id => {
+    const c=customCoupons.find(x=>x.id===id);
+    if(c){
+      c.status='approved';
+      safeWrite('ch_v4_coupons',customCoupons);
+
+      // Check how many approved coupons this user has now
+      const userApproved = customCoupons.filter(item => item.submittedBy === c.submittedBy && item.status === 'approved').length;
+      if(userApproved >= 3 && user.email === c.submittedBy){
+        user.premium = true;
+        safeWrite('ch_v4_user',user);
+        toast('Gratulálunk! 3 jóváhagyott kuponért megkaptad a 7 napos ingyen prémiumot!');
+      }
+
+      renderCoupons();
+      renderAdminPanel();
+      renderUser();
+      toast('Kupon jóváhagyva és közzétéve!');
+    }
+  };
+
+  // Plans & Checkout simulation (records revenue)
+  $$('[data-plan]').forEach(b=>b.addEventListener('click',()=>{
+    if(!user){toast('Előfizetéshez kérlek jelentkezz be.');accountDialog.showModal();return;}
+    const price = parseInt(b.dataset.price, 10) || 0;
+    user.premium = true;
+    safeWrite('ch_v4_user',user);
+
+    allTransactions.push({ plan: b.dataset.plan, amount: price, date: new Date().toISOString(), user: user.email });
+    safeWrite('ch_v4_transactions', allTransactions);
+
+    renderUser();
+    toast(`Sikeres előfizetés (${b.dataset.plan})! Prémium hozzáférés aktiválva.`);
+  }));
+
+  $$('[data-close-dialog]').forEach(b=>b.addEventListener('click',()=>$('#'+b.dataset.closeDialog).close()));
+  [accountDialog,submitDialog,adminDialog,infoModal].forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close();}));
+  $('#closeModal').addEventListener('click',()=>infoModal.close());
+
+  renderCoupons();
+  renderUser();
+  syncFavoriteButtons();
+})();
+</script>
+</body>
+</html>
